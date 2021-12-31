@@ -72,6 +72,7 @@ class Comment(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True)
     body = models.TextField(max_length=1028)
     film = models.ForeignKey(Film,on_delete=models.CASCADE , null=True)
+    # comments = GenericRelation('Comment', null=True)
 
     def __str__(self):
         return self.film.title

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Film, Profile , Category , Like
+from .models import Film, Profile , Category , Like ,Dislike,Comment
 
 
 # Register your models here.
@@ -20,4 +20,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Like)
 class LikeAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Dislike)
+class DislikeAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
     pass
