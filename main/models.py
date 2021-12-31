@@ -59,7 +59,13 @@ class Like(models.Model):
         return self.film.title
 
 
+class Dislike(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True)
 
+    film = models.ForeignKey(Film,on_delete=models.CASCADE , null=True)
+
+    def __str__(self):
+        return self.film.title
 
 
 

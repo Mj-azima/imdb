@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Film, Like, Profile
+from .models import Film, Like, Profile, Dislike
 
 
 class FilmSerializer(serializers.ModelSerializer):
@@ -25,6 +25,11 @@ class ProfileSerializer(serializers.ModelSerializer):
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
+        fields = '__all__'
+
+class DislikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Dislike
         fields = '__all__'
 
 

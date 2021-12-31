@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import viewsets , filters
 from rest_framework import generics
-from .serializers import FilmSerializer, ProfileSerializer , LikeSerializer
-from .models import Film, Category, Profile, Like
+from .serializers import FilmSerializer, ProfileSerializer , LikeSerializer, DislikeSerializer
+from .models import Film, Category, Profile, Like , Dislike
 from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.decorators import api_view
@@ -62,6 +62,20 @@ class LikeView(viewsets.ModelViewSet):
             return Response({"message": "ERROR!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class DislikeView(viewsets.ModelViewSet):
+    queryset = Dislike.objects.all()
+    serializer_class = DislikeSerializer
+
+    def get_queryset(self):
+        if self.request.method == 'post':
+            id = self.request.GET.get('id')
+            if id:
+                film= Film.objects.get(id=id)
+                like =Dislike.objects.create(user=self.request.user,film=film)
+                like.save()
+                return Response({"message": "%s liked!" % film.title}, status=status.HTTP_200_OK)
+
+            return Response({"message": "ERROR!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
