@@ -53,7 +53,7 @@ class Like(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True)
     # content_type = models.ForeignKey( on_delete=models.CASCADE)
     # object_id = models.PositiveIntegerField()
-    film = models.ForeignKey(Film,on_delete=models.CASCADE)
+    film = models.ForeignKey(Film,on_delete=models.CASCADE , null=True)
 
     def __str__(self):
         return self.film.title
