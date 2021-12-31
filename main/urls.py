@@ -9,6 +9,7 @@ router.register('', views.FilmView)
 router.register('accounts/profile', views.ProfileView)
 router.register('like/l', views.LikeView)
 router.register('like/d', views.DislikeView)
+router.register('comment/c', views.CommentView)
 # router.register('l', views.like)
 
 app_name ='main'
