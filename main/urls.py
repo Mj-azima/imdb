@@ -7,13 +7,14 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('', views.FilmView)
 router.register('accounts/profile', views.ProfileView)
+router.register('like/l', views.LikeView)
 # router.register('l', views.like)
 
 app_name ='main'
 
 urlpatterns = [
     path('v1/',include(router.urls)),
-    path('v1/like/post',views.like,name='like'),
+    # path('v1/like/post',views.LikeView,name='like'),
     path('v1/accounts/', include('accounts.urls')),
     # path('sendmail/',)
     # path('' ,views.index ,name='index'),

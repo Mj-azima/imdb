@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import viewsets , filters
 from rest_framework import generics
-from .serializers import FilmSerializer, ProfileSerializer
-from .models import Film, Category , Profile
+from .serializers import FilmSerializer, ProfileSerializer , LikeSerializer
+from .models import Film, Category, Profile, Like
 from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.decorators import api_view
@@ -47,35 +47,45 @@ class ProfileView(viewsets.ModelViewSet):
 
 
 class LikeView(viewsets.ModelViewSet):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+
+    def get_queryset(self):
+        if self.request.method == 'post':
+            id = self.request.GET.get('id')
+            if id:
+                film= Film.objects.get(id=id)
+                like =Like.objects.create(user=self.request.user,film=film)
+                like.save()
+                return Response({"message": "%s liked!" % film.title}, status=status.HTTP_200_OK)
+
+            return Response({"message": "ERROR!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
 
 
-
-
-@api_view(['POST'])
-def like(request):
-    if request.method == 'post':
-        id=request.GET.get('id')
-        type=request.GET.get('type')
-
-        if id and type:
-            if type in ['Like', 'Comments']:
-                model = eval(type)
-                obj = model.objects.get(id=id)
-                if obj.likes.filter(user=request.user):
-                    obj.likes.filter(user=request.user).delete()
-
-                    return Response({"message": "%s disliked!" % obj.title}, status=status.HTTP_200_OK)
-                else:
-                    obj.likes.create(user=request.user)
-                    return Response({"message": "%s liked!" % obj.title}, status=status.HTTP_200_OK)
-        return Response({"message": "ERROR!"}, status=status.HTTP_400_BAD_REQUEST)
-
-
+#
+# @api_view(['POST'])
+# def like(request):
+#     if request.method == 'post':
+#         id=request.GET.get('id')
+#         type=request.GET.get('type')
+#
+#         if id and type:
+#             if type in ['Like', 'Comments']:
+#                 model = eval(type)
+#                 obj = model.objects.get(id=id)
+#                 if obj.likes.filter(user=request.user):
+#                     obj.likes.filter(user=request.user).delete()
+#
+#                     return Response({"message": "%s disliked!" % obj.title}, status=status.HTTP_200_OK)
+#                 else:
+#                     obj.likes.create(user=request.user)
+#                     return Response({"message": "%s liked!" % obj.title}, status=status.HTTP_200_OK)
+#         return Response({"message": "ERROR!"}, status=status.HTTP_400_BAD_REQUEST)
+#
+#
 
 
 

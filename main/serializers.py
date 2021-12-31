@@ -22,7 +22,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class likeSerializer(serializers.ModelSerializer):
+class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = '__all__'
