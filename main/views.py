@@ -46,6 +46,11 @@ class ProfileView(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
 
 
+class LikeView(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+
 
 
 

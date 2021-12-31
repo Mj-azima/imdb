@@ -51,12 +51,12 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 class Like(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey()
+    # content_type = models.ForeignKey( on_delete=models.CASCADE)
+    # object_id = models.PositiveIntegerField()
+    film = models.ForeignKey(Film,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.content_object.title
+        return self.film.title
 
 
 

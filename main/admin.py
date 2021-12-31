@@ -10,7 +10,7 @@ class FilmAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Profile)
-class FilmAdmin(admin.ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Category)
